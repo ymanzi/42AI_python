@@ -8,6 +8,7 @@ class Recipe:
     - ingredients (list) : list of all ingredients each represented by a string
     - description (str) : description of the recipe
     - recipe_type (str) : can be "starter", "lunch" or "dessert". """
+	
     def __init__(self, name, lvl, tim, ingred, desc, typ):
         try:
             self.name = str(name)
