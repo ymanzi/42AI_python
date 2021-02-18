@@ -1,4 +1,5 @@
-#!/goinfre/miniconda3/bin/python
+#/goinfre/miniconda3/bin/python
+#!/usr/bin/python
 
 class Vector:
 	def __init__(self, values, ra = None):
@@ -21,7 +22,7 @@ class Vector:
 
 	def __add__(self, oth):
 		if (isinstance(oth, Vector) and len(self.values) == len(oth.values)):
-			return [ a + b for a in self.values for b in oth.values ]
+			return Vector([self.values[i] + oth.values[i] for i in range(0, len(self.values))])
 
 
 	
