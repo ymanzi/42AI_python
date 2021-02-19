@@ -15,14 +15,35 @@ class Vector:
 			self.values = [0.0] * values
 		elif (isinstance(values, list)):
 			self.values = values
+		else:
+			raise TypeError("Wrong Init Variables")
 		self.size = len(self.values)		
 		
 	def __str__(self):
 		return ("Vector {}".format(self.values))
 
+	def __repr__(self):
+		print(self)
+
 	def __add__(self, oth):
 		if (isinstance(oth, Vector) and len(self.values) == len(oth.values)):
 			return Vector([self.values[i] + oth.values[i] for i in range(0, len(self.values))])
+		elif (isinstance(oth, int)):
+			return Vector([self.values[i] + oth for i in range(0, len(self.values))])
+		else:
+			raise TypeError("Wrong variables for addition")
+	def __radd__(self, oth):
+		return self + oth
+	def __iadd__(self, oth):
+		if (isinstance(oth, Vector) and len(self.values) == len(oth.values)):
+			self.values = [self.values[i] + oth.values[i] for i in range(0, len(self.values))]
+		elif (isinstance(oth, int)):
+			self.values = [self.values[i] + oth for i in range(0, len(self.values))]
+		else:
+			raise TypeError("Wrong variables for addition")
+		return self
+	
+			
 
 
 	

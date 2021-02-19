@@ -9,6 +9,7 @@ lol2 = Vector(1, 5)
 print(lol)
 print(lol1)
 print(lol2)
-
-print(lol1 + lol2)
+# 5 += lol1
+print(5 + lol1)
+print(lol1)
 
