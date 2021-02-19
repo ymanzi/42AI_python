@@ -10,6 +10,6 @@ print(lol)
 print(lol1)
 print(lol2)
 # 5 += lol1
-print(5 + lol1)
-print(lol1)
+print(lol1 / 5)
+# print(lol1)
 

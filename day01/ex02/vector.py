@@ -26,6 +26,7 @@ class Vector:
 		print(self)
 
 	def __add__(self, oth):
+		""" vector + int or vector + vector operation """
 		if (isinstance(oth, Vector) and len(self.values) == len(oth.values)):
 			return Vector([self.values[i] + oth.values[i] for i in range(0, len(self.values))])
 		elif (isinstance(oth, int)):
@@ -33,8 +34,10 @@ class Vector:
 		else:
 			raise TypeError("Wrong variables for addition")
 	def __radd__(self, oth):
+		""" int + vector operation """
 		return self + oth
 	def __iadd__(self, oth):
+		""" += operation """
 		if (isinstance(oth, Vector) and len(self.values) == len(oth.values)):
 			self.values = [self.values[i] + oth.values[i] for i in range(0, len(self.values))]
 		elif (isinstance(oth, int)):
@@ -42,6 +45,42 @@ class Vector:
 		else:
 			raise TypeError("Wrong variables for addition")
 		return self
+
+	def __sub__(self, oth):
+		""" vector - int or vector - vector operation """
+		if (isinstance(oth, Vector) and len(self.values) == len(oth.values)):
+			return Vector([self.values[i] - oth.values[i] for i in range(0, len(self.values))])
+		elif (isinstance(oth, int)):
+			return Vector([self.values[i] - oth for i in range(0, len(self.values))])
+		else:
+			raise TypeError("Wrong variables for addition")
+	def __rsub__(self, oth):
+		""" int - vector operation """
+		return self - oth
+	
+	def __truediv__(self, oth):
+		""" vector / int or vector / vector operation """
+		if (isinstance(oth, Vector) and len(self.values) == len(oth.values)):
+			return Vector([self.values[i] / oth.values[i] for i in range(0, len(self.values))])
+		elif (isinstance(oth, int) and oth != 0):
+			return Vector([self.values[i] / oth for i in range(0, len(self.values))])
+		else:
+			raise TypeError("Wrong variables for addition")
+	def __rtruediv__(self, oth):
+		""" int / vector operation """
+		return self / oth
+	
+	def __mul__(self, oth):
+		""" vector * int or vector * vector operation """
+		if (isinstance(oth, Vector) and len(self.values) == len(oth.values)):
+			return Vector([self.values[i] * oth.values[i] for i in range(0, len(self.values))])
+		elif (isinstance(oth, int)):
+			return Vector([self.values[i] * oth for i in range(0, len(self.values))])
+		else:
+			raise TypeError("Wrong variables for addition")
+	def __rmull__(self, oth):
+		""" int * vector operation """
+		return self + oth
 	
 			
 
