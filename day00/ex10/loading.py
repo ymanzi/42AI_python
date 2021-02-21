@@ -1,18 +1,24 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python
+
 from time import sleep
 import sys
 
 def ft_progress(lst):
-    for elem in lst:
+    for elem in range(lst):
         yield elem
 
-listy = range(1000)
-ret = 0
-for elem in ft_progress(listy):
-    ret += (elem + 3) % 5
-    sys.stdout.write('\r')
-    print("{}%".format(ret/20))
-    sys.stdout.flush()
-    sleep(0.001)
-print("...")
-print(ret)
+toolbar_width = 40
+sys.stdout.write("[%s]" % (" " * (toolbar_width + 3)))
+sys.stdout.flush()
+sys.stdout.write("\b" * (toolbar_width + 2))
+
+lst = ft_progress(toolbar_width + 1)
+
+for i in lst:
+	sys.stdout.write("\b" * (toolbar_width + 3))
+	sleep(0.1)
+	sys.stdout.write("[")
+	sys.stdout.write("=" * i + "%" + str(i * 100 / toolbar_width))
+	sys.stdout.flush()
+
+sys.stdout.write("]\n")
