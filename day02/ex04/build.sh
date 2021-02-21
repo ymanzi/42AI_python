@@ -1,5 +1,7 @@
 #!/bin/bash
 
+https://packaging.python.org/tutorials/packaging-projects/
+
 mkdir dist
 mkdir ai42
 mkdir ai42/logging
