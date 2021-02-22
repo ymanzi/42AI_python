@@ -1,6 +1,6 @@
 #!/bin/bash
 
-https://packaging.python.org/tutorials/packaging-projects/
+#https://packaging.python.org/tutorials/packaging-projects/
 
 mkdir dist
 mkdir ai42
@@ -51,5 +51,26 @@ def ft_progress(lst):
     for elem in range(lst):
         yield elem' > ai42/progressbar.py
 
-tar cvfz dist/ai42-1.0.0.tar.gz ai42
-rm -rf ai42
+echo 'import setuptools
+
+setuptools.setup(
+	name="ai42", # Replace with your own username
+	version="1.0.0",
+	author="Yves Manzi",
+	author_email="yv.manzi@student.s19.be",
+	description="A small example package",
+	long_description="42Ai Python Bootcamp day02/ex04",
+	long_description_content_type="text/markdown",
+	url="https://github.com/ymanzi/bootcamp_python/blob/master/day02/ex04",
+	classifiers=[
+		"Programming Language :: Python :: 3",
+		"License :: OSI Approved :: MIT License",
+		"Operating System :: OS Independent",
+	],
+	packages=setuptools.find_packages(),
+	python_requires=">=3.6",
+)' > setup.py
+
+python3 -m pip install --upgrade build
+python3 -m build
+rm -rf \=3.6,$'\n'\) ai42.egg-info/ build
