@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-import TinyStatistician as tstat
-# tstat = TinyStatistician()
+from TinyStatistician import TinyStatistician
+tstat = TinyStatistician()
 
 a = [1, 42, 300, 10, 59]
 
