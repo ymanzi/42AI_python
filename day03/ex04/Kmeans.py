@@ -16,6 +16,7 @@ def var(x):
 			ret_var += elem
 		return float(ret_var / len(x))
 
+
 def crop(array, dimensions, position=(0, 0)):
 	""" 
 		crop(array, dimensions, position)
@@ -80,8 +81,11 @@ class KmeansClustering:
 		for nb_iter in range(self.max_iter):
 			tmp_centroids = []
 			centroid_points = {}
+			tmp_range = list(range(len(X)))
 			for i in range(self.ncentroid):
-				random_coord = randrange(len(X))
+				y = randrange(len(tmp_range))
+				random_coord = tmp_range[y]
+				tmp_range.pop(y)
 				tmp_centroids.append(tuple(X[random_coord]))
 				centroid_points[tuple(X[random_coord])] = []
 			for elem in X:
@@ -97,6 +101,11 @@ class KmeansClustering:
 			tmp_centroids.clear()
 			for elem in centroid_points.keys():
 				tmp_centroids.append(elem)
+			centroid_points.clear()
+			for elem in tmp_centroids:
+				centroid_points[elem] = []
+			for elem in X:
+				centroid_points[get_centroid(tuple(elem), tmp_centroids)].append(tuple(elem))
 			for key, value in centroid_points.items():
 				tmp_distance_list = []
 				for elem in value:
@@ -104,7 +113,9 @@ class KmeansClustering:
 				tmp_mean_to_centroid += sqrt(var(tmp_distance_list))
 			if (type(mean_to_centroid) == type(None) or tmp_mean_to_centroid < mean_to_centroid):
 				mean_to_centroid = tmp_mean_to_centroid
-				self.centroids = tmp_centroids
+				self.centroids.clear()
+				for elem in centroid_points.values():
+					self.centroids.append(elem)
 
 	def predict(self, X):
 		"""
@@ -116,7 +127,37 @@ class KmeansClustering:
 		Raises:
 		This function should not raise any Exception.
 		"""
-		pass
+		# def get_avarage(lst):
+		# 	tmp_dic = {}
+		# 	for i in range(len(lst[0])):
+		# 		tmp_dic[i] = 0.0
+		# 	for elem in lst:
+		# 		for i in range(len(elem)):
+		# 			tmp_dic[i] += float(elem[i])
+		# 	for elem in tmp_dic.values():
+		# 		elem /= len(lst)
+		# 	return get_tuple(tmp_dic)
+		
+		# def get_tuple(dic):
+		# 	tmp_list = []
+		# 	for elem in dic.values():
+		# 		som_elem = 0
+		# 		for pos in elem:
+		# 			som_elem += pos
+		# 		som_elem /= len(dic)
+		# 		tmp_list.append(som_elem)
+		# 	return tuple(tmp_list)
+
+		# tmp_dic = {}
+		# for i in range(len(self.centroids)):
+		# 	tmp_dic[i] = get_avarage(self.centroids[i])
+		# planet_list = ["Earth", "Venus", "Martian Republic", "Citizens of the Belt"]
+		# tmp_planet = {}
+		# for i in range(len(planet_list)):
+		# 	tmp_planet[i] = planet_list[i]
+		
+
+		
 
 
 
