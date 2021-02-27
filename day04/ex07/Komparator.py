@@ -1,4 +1,5 @@
 from MyPlotLib import MyPlotLib
+import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -9,24 +10,14 @@ class Komparator:
 
 	def compare_box_plots(self, categorical_var, numerical_var):
 		lst_categorical = self.data[categorical_var].unique()
-		my_list = []
-		# colors = ['#E69F00', '#56B4E9', '#F0E442', '#009E73', '#D55E00']
-		for elem in lst_categorical:
-			my_list.append (self.data[(self.data[categorical_var] == elem)][numerical_var])
-		x = int(len(my_list) / 2)
-		y = int(len(my_list) - x)
-		fig, axs = plt.subplots(x, y)
-		k = 0
-		for i in range(x):
-			for j in range(y):
-				axs[i, j].boxplot(my_list[k])
-				k += 1
+		row = int(len(lst_categorical))
+		fig, axs = plt.subplots(nrows= 1, ncols= row)
+		for i, elem in enumerate(lst_categorical):
+			df = self.data[(self.data[categorical_var] == elem)][numerical_var].dropna()
+			axs[i].boxplot(df, vert=False, notch = True, labels=list(lst_categorical[i]), whis=0.75, widths = 0.1, patch_artist=bool(i % 2))
+			axs[i].set_xlabel(numerical_var)
+			axs[i].legend(lst_categorical[i])
 		plt.show()
-
-		# for elem in lst_categorical:
-		# 	data = self.data[(self.data[categorical_var] == elem)][numerical_var]
-		# 	sns.boxplot(data)
-		# plt.show()
 
 	def density(self, categorical_var, numerical_var) :
 		lst_categorical = self.data[categorical_var].unique()
