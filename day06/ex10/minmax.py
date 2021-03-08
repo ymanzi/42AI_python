@@ -13,8 +13,8 @@ def minmax(x):
 	array_min = min(x)
 	array_max = max(x)
 	diff_max_min = array_max - array_min
-	f = lambda x: (x - min) / diff_max_min
+	f = lambda x: (x - array_min) / diff_max_min
 	return np.array(list(map(f, x)))
 
-X = np.array([0, 15, -9, 7, 12, 3, -21])
+X = np.array([2, 14, -13, 5, 12, 4, -19])
 print(minmax(X))
