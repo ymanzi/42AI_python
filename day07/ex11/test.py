@@ -19,11 +19,11 @@ reg = MLR([1.0, 1.0,   1.0,  1.0])
 # reg.fit_(X,Y, alpha = 6.5e-5, n_cycle = 1000000)
 # print("cost ", power, " : ", reg.cost_(X, Y), "\n")
 
-# power = 2
-# reg.thetas = np.full(3 ** power + 1, 1.0)
-# P = add_polynomial_features(X, power)
-# reg.fit_(P, Y, alpha = 1e-9, n_cycle = 1000000)
-# print("cost ", power, " : ", reg.cost_(P, Y), "\n")
+power = 2
+reg.thetas = np.full(3 ** power + 1, 1.0)
+P = add_polynomial_features(X, power)
+reg.fit_(P, Y, alpha = 1e-9, n_cycle = 5000)
+print("cost ", power, " : ", reg.cost_(P, Y), "\n")
 
 # power = 3
 # reg.thetas = np.full(4 * power + 1, 1.0)

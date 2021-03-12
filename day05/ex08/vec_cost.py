@@ -13,7 +13,8 @@ def cost_(y: np.ndarray, y_hat: np.ndarray) -> float:
 		Raises:
 		This function should not raise any Exceptions.
 	"""
-
+	if (y.size == 0 or y_hat.size == 0 or y.shape != y_hat.shape):
+		return None
 	tmp = [pow((e1 - e2), 2)/ (2 * len(y)) for e1, e2 in zip(y, y_hat)]
 	return sum(tmp)
 

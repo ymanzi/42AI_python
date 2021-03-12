@@ -52,7 +52,7 @@ class MyLinearRegression():
 		x_theta_minus_y = np.subtract(x_theta, y)
 		return x_plus.transpose().dot(x_theta_minus_y) / len(x.tolist())
 
-	def fit_(self, x, y, alpha = 0.1, n_cycle=1000):
+	def fit_(self, x, y, alpha = 0.001, n_cycle=1000):
 		if y.ndim > 1:
 			y = np.array([elem for lst in y for elem in lst])
 		x_plus = self.add_intercept(x)
@@ -71,27 +71,6 @@ class MyLinearRegression():
 			ret = np.array([elem for lst in ret for elem in lst])
 		return sum(ret)
 
-	def mae_(self, y: np.ndarray, y_hat: np.ndarray) -> float:
-		if (y.size == 0 or y_hat.size == 0 or y.shape != y_hat.shape):
-			return None
-		tmp = [abs(e2 - e1)/ (len(y)) for e1, e2 in zip(y, y_hat)]
-		return sum(tmp)
-
-	def mae_elem(self, y: np.ndarray, y_hat: np.ndarray):
-		if (y.size == 0 or y_hat.size == 0 or y.shape != y_hat.shape):
-			return None
-		tmp = [abs(e2 - e1)/ (len(y)) for e1, e2 in zip(y, y_hat)]
-		return tmp
-
-	def r2score_(self, y: np.ndarray, y_hat: np.ndarray) -> float:
-		y = y.reshape((-1,))
-		y_hat = y_hat.reshape((-1, ))
-		
-		y_minus_yhat = [pow(e2 - e1, 2) for e1, e2 in zip(y, y_hat)]
-		mean_y = sum(y.tolist()) / y.size
-		y_minus_means = [pow(e1 - mean_y, 2) for e1 in y]
-		return (1 - (sum(y_minus_yhat) / sum(y_minus_means)))
-
 	def plot_line(self, x: np.ndarray, y: np.ndarray):
 		predicted_values = self.predict_(x)
 		plt.scatter(x, y, color="orange") #draw the multiple points
@@ -105,27 +84,14 @@ class MyLinearRegression():
 
 	def plot_points(self, x_values, expected_values):
 		predicted_values = self.predict_(x_values)
-		# print(np.array([[elem] for elem in predicted_values]))
-		# print(expected_values)
 		plt.plot(x_values, predicted_values, linestyle="",marker="o", color="orange")
 		plt.plot(x_values, expected_values, linestyle="",marker="o", color="blue")
-		# plt.title("Cost: " + str(cost))
 		plt.show()
-	# def plot_points(self, x: np.ndarray, y: np.ndarray):
-	# 	predicted_values = self.predict_(x)
-		# plt.scatter(x_values, predicted_values, color="orange") #draw the multiple points
-	# 	cost = self.cost_(x, y)
-	# 	plt.scatter(x, predicted_values, color="blue", marker="x")
-	# 	plt.xlabel("X")
-	# 	plt.ylabel("Y")
-	# 	title = "Cost : " + str(cost)[:9]
-	# 	plt.title(title)
-		# plt.show()
 
 
-# x = np.array([[1., 1., 2., 3.], [5., 8., 13., 21.], [34., 55., 89., 144.]])
-# y = np.array([[23.], [48.], [218.]])
+# X = np.array([[1., 1., 2., 3.], [5., 8., 13., 21.], [34., 55., 89., 144.]])
+# Y = np.array([[23.], [48.], [218.]])
+# mylr = MyLinearRegression([[1.], [1.], [1.], [1.], [1]])
 
-# lr = MyLinearRegression(np.array([[1.], [1.], [1.], [1.], [1]]))
-# lr.fit_(x, y)
-# print(lr.cost_elem_(x, y))
+# mylr.fit_(X, Y, alpha = 1.6e-4, n_cycle=200000)
+# print(mylr.cost_(X,Y))
