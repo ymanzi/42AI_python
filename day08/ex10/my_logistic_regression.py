@@ -23,7 +23,6 @@ class MyLogisticRegression():
             x = x.reshape(-1, 1)
         x_plus = np.column_stack((np.full((x.shape[0], self.theta.shape[0] - x.shape[1]) , 1), x)) 
         x_theta = x_plus.dot(self.theta).reshape(-1, 1)
-        print(x_plus)
         return self.sigmoid_(x_theta)
 
     def cost_(self, x: np.ndarray, y: np.ndarray, eps=1e-15):
@@ -39,8 +38,16 @@ class MyLogisticRegression():
         for i in range(n_cycle):
             y_hat = self.predict_(x)
             gradient = x_plus.transpose().dot(np.subtract(y_hat, y))  # to give us the direction to a better theta-i
-            self.theta = self.theta - self.alpha * gradient # improve theta with alpha-step
+            self.theta = self.theta - alpha * gradient # improve theta with alpha-step
         return self.theta
+
+    def add_polynomial_features(self, x: np.ndarray, power: int) -> np.ndarray:
+        if x.size == 0:
+            return None
+        copy_x = x
+        for nb in range(2, power + 1):
+            x = np.column_stack((x, copy_x ** nb))
+        return x
 
 # X = np.array([[1., 1., 2., 3.], [5., 8., 13., 21.], [3., 5., 9., 14.]])
 # Y = np.array([[1], [0], [1]])
