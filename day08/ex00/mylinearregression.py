@@ -52,7 +52,7 @@ class MyLinearRegression():
 		x_theta_minus_y = np.subtract(x_theta, y)
 		return x_plus.transpose().dot(x_theta_minus_y) / len(x.tolist())
 
-	def fit_(self, x, y, alpha = 0.001, n_cycle=1000):
+	def fit_(self, x, y, alpha = self.alpha, n_cycle=self.max_iter):
 		if y.ndim > 1:
 			y = np.array([elem for lst in y for elem in lst])
 		x_plus = self.add_intercept(x)
