@@ -23,7 +23,6 @@ class MyLogisticRegression():
             x = x.reshape(-1, 1)
         x_plus = np.column_stack((np.full((x.shape[0], self.theta.shape[0] - x.shape[1]) , 1), x)) 
         x_theta = x_plus.dot(self.theta).reshape(-1, 1)
-        print(x_plus)
         return self.sigmoid_(x_theta)
 
     def cost_(self, x: np.ndarray, y: np.ndarray, eps=1e-15):

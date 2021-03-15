@@ -7,14 +7,14 @@ class MyLinearRegression():
 	Description:
 		My personnal linear regression class to fit like a boss.
 	"""
-	def __init__(self,  thetas, alpha=0.001, max_iter=10000):
+	def __init__(self,  theta, alpha=0.001, n_cycle=10000):
 		self.alpha = alpha
-		self.max_iter = max_iter
-		if isinstance(thetas, list):
-			thetas = np.array(thetas)
-		if thetas.ndim != 1:
-			thetas = np.array([elem for lst in thetas for elem in lst])
-		self.thetas = thetas
+		self.n_cycle = n_cycle
+		if isinstance(theta, list):
+			theta = np.array(theta)
+		if theta.ndim != 1:
+			theta = np.array([elem for lst in theta for elem in lst])
+		self.theta = theta
 
 	def add_intercept(self, x):
 		"""Adds a column of 1's to the non-empty numpy.ndarray x.
@@ -27,11 +27,11 @@ class MyLinearRegression():
 		Raises:
 			This function should not raise any Exception.
 		"""
-		return np.column_stack((np.full((x.shape[0], self.thetas.shape[0] - x.shape[1]) , 1), x))
+		return np.column_stack((np.full((x.shape[0], self.theta.shape[0] - x.shape[1]) , 1), x))
 
 	def predict_(self, x):
 		x_plus = self.add_intercept(x)
-		return x_plus.dot(self.thetas).reshape(-1, 1)
+		return x_plus.dot(self.theta).reshape(-1, 1)
 
 	def cost_elem_(self, x, y):
 		predicted_y = self.predict_(x)
@@ -48,20 +48,20 @@ class MyLinearRegression():
 		if y.ndim > 1:
 			y = np.array([elem for lst in y for elem in lst])
 		x_plus = self.add_intercept(x)
-		x_theta = x_plus.dot(self.thetas)
+		x_theta = x_plus.dot(self.theta)
 		x_theta_minus_y = np.subtract(x_theta, y)
 		return x_plus.transpose().dot(x_theta_minus_y) / len(x.tolist())
 
-	def fit_(self, x, y, alpha = 0.001, n_cycle=10000):
+	def fit_(self, x, y, alpha = 0.001, n_cycle = 10000):
 		if y.ndim > 1:
 			y = np.array([elem for lst in y for elem in lst])
 		x_plus = self.add_intercept(x)
 		for i in range(n_cycle):
-			x_theta = x_plus.dot(self.thetas)
+			x_theta = x_plus.dot(self.theta)
 			x_theta_minus_y = np.subtract(x_theta, y)
 			grad = x_plus.transpose().dot(x_theta_minus_y) / len(x.tolist())
-			self.thetas = np.subtract(self.thetas, alpha * grad)
-		return self.thetas
+			self.theta = np.subtract(self.theta, alpha * grad)
+		return self.theta
 	
 	def mse_(self, x, y):
 		predicted_y = self.predict_(x)
