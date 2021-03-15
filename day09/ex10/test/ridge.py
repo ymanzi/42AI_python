@@ -9,7 +9,6 @@ def minmax_normalization(x):
     range = max - min
     return np.divide(np.subtract(x, min), range)
 
-
 def l2_regularization(theta):
     theta[0] = 0
     return theta.transpose().dot(theta)
